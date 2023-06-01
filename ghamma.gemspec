@@ -25,8 +25,12 @@ Gem::Specification.new do |spec|
     end
   end
   spec.bindir = "exe"
-  spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
+  spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
   spec.add_dependency "http"
+
+  spec.add_development_dependency "rake"
+  spec.add_development_dependency "standard"
+  spec.add_development_dependency "test-unit"
 end

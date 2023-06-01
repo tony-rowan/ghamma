@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require 'ghamma'
+
+Ghamma::Cli.new.print_workflow_duration_metrics
