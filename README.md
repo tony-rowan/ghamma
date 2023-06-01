@@ -13,9 +13,14 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ## Usage
 
-Usage is currently very simple as the gem does very little. First, you need a token
-with read access to the repo you are trying to collect metrics for and you need to make
-it available to the gem.
+### Authentication
+
+The Github workflows API requires an authenticated user, even for public repos.
+To use this tool, you will need a 
+[Github API Token](https://docs.github.com/en/rest/overview/authenticating-to-the-rest-api#authenticating-with-a-personal-access-token) 
+with at least `read` access to the repo you want to look at.
+
+Once you have that, make it available.
 
 ```shell
 $ export GH_TOKEN="YOUR_API_TOKEN"
