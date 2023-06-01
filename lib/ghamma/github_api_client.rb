@@ -26,11 +26,11 @@ module Ghamma
         raise "Could not find workflow with name #{workflow_name}"
       end
 
-      workflow_runs = get(
+      get(
         "/workflows/#{workflow_id}}/runs",
         {per_page: 100, status: "success", exclude_pull_requests: true}
       ).fetch("workflow_runs")
-      .map do |workflow_run|
+        .map do |workflow_run|
         run_timing = get("/runs/#{workflow_run["id"]}/timing")
 
         [
