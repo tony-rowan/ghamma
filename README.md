@@ -16,25 +16,32 @@ If bundler is not being used to manage dependencies, install the gem by executin
 ### Authentication
 
 The Github workflows API requires an authenticated user, even for public repos.
-To use this tool, you will need a 
-[Github API Token](https://docs.github.com/en/rest/overview/authenticating-to-the-rest-api#authenticating-with-a-personal-access-token) 
+To use this tool, you will need a
+[Github API Token](https://docs.github.com/en/rest/overview/authenticating-to-the-rest-api#authenticating-with-a-personal-access-token)
 with at least `read` access to the repo you want to look at.
 
 Once you have that, make it available.
 
-```shell
+```
 $ export GH_TOKEN="YOUR_API_TOKEN"
 ```
 
-Then, simply run, specifying the repo and a CSV of durations will be printed.
+Then fetch the list of available workflows for the repo. The name will be necessary in the next step.
 
-```shell
-$ ghamma tony-rowan ghamma
+```
+$ ghamma list-workflows tony-rowan ghamma
 Found 1 workflows
-Fetched runs for Ruby
-Fetched timings for Ruby
 Ruby
+```
+
+Then fetch a CSV of the durations of the latest workflow runs.
+
+```
+$ ghamma duration-history tony-rowan ghamma Ruby
 Date,Duration
+2023-06-01T15:44:49Z,21000
+2023-06-01T15:37:21Z,17000
+2023-06-01T15:35:16Z,23000
 2023-06-01T15:31:33Z,19000
 ```
 
