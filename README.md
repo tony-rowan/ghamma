@@ -13,7 +13,25 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ## Usage
 
-TODO: Write usage instructions here
+Usage is currently very simple as the gem does very little. First, you need a token
+with read access to the repo you are trying to collect metrics for and you need to make
+it available to the gem.
+
+```shell
+$ export GH_TOKEN="YOUR_API_TOKEN"
+```
+
+Then, simply run, specifying the repo and a CSV of durations will be printed.
+
+```shell
+$ ghamma tony-rowan ghamma
+Found 1 workflows
+Fetched runs for Ruby
+Fetched timings for Ruby
+Ruby
+Date,Duration
+2023-06-01T15:31:33Z,19000
+```
 
 ## Development
 
