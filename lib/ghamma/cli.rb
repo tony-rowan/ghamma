@@ -3,7 +3,6 @@ require "http"
 
 module Ghamma
   class Cli
-
     BASE_URL = "https://api.github.com".freeze
     OWNER = ARGV[0].freeze
     REPOSITORY = ARGV[1].freeze

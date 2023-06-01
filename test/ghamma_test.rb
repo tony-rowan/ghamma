@@ -8,8 +8,4 @@ class GhammaTest < Test::Unit::TestCase
       ::Ghamma.const_defined?(:VERSION)
     end
   end
-
-  test "something useful" do
-    assert_equal("expected", "actual")
-  end
 end
