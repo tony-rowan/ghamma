@@ -5,8 +5,6 @@ source "https://rubygems.org"
 # Specify your gem's dependencies in ghamma.gemspec
 gemspec
 
-gem "rake", "~> 13.0"
-
-gem "test-unit", "~> 3.0"
-
-gem "standard", "~> 1.3"
+gem "rake"
+gem "standard"
+gem "test-unit"
