@@ -2,4 +2,4 @@
 
 require "ghamma"
 
-Ghamma::Cli.new.print_workflow_duration_metrics
+Dry::CLI.new(Ghamma::CLI).call

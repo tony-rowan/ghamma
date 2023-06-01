@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     ghamma (0.1.1)
+      dry-cli
       http
 
 GEM
@@ -12,6 +13,7 @@ GEM
     ast (2.4.2)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
+    dry-cli (1.0.0)
     ffi (1.15.5)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)

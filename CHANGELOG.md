@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- Breaking: Add commands to the CLI: `version`, `list-worklows`, `duration-history`
+
 ## [0.1.1] - 2023-06-01
 
 - Actually make the gem executable
