@@ -10,18 +10,30 @@ module Ghamma
     end
 
     def fetch_workflow_duration_history(workflow_id)
-      get(
-        "/workflows/#{workflow_id}}/runs",
-        {per_page: 100, status: "success", exclude_pull_requests: true}
-      ).fetch("workflow_runs")
-        .map do |workflow_run|
-        run_timing = get("/runs/#{workflow_run["id"]}/timing")
+      pages = 2 # enough to do the first loop
+      page = 1
+      timings = []
 
-        [
-          workflow_run["created_at"],
-          run_timing["run_duration_ms"]
-        ]
+      while page < pages
+        response = get(
+          "/workflows/#{workflow_id}/runs",
+          {page: page, per_page: 100, status: "success", exclude_pull_requests: true}
+        )
+
+        pages = response["total_count"] / 100
+        page += 1
+
+        response.fetch("workflow_runs").each do |workflow_run|
+          run_timing = get("/runs/#{workflow_run["id"]}/timing")
+
+          timings << [
+            workflow_run["created_at"],
+            run_timing["run_duration_ms"]
+          ]
+        end
       end
+
+      timings
     end
 
     private

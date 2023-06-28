@@ -1,5 +1,6 @@
 ## [Unreleased]
 
+- Feature: Fetch all the workflow runs, not just the first 100
 - Breaking: Removed the `list-workflows` command and renamed the `duration-history` to just `duration`
 - Breaking: The `duration` command now accepts the workflow file name (or ID) instead of the name
 
