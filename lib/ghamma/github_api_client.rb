@@ -9,23 +9,7 @@ module Ghamma
       @authorization_header = "Bearer #{token}"
     end
 
-    def fetch_workflows
-      get("/workflows")
-        .fetch("workflows")
-        .map do |workflow_json|
-          workflow_json.transform_keys(&:to_sym).slice(:id, :name)
-        end
-    end
-
-    def fetch_workflow_duration_history(workflow_name)
-      workflow_id = get("/workflows").fetch("workflows")
-        .find { |workflow| workflow["name"] == workflow_name }
-        &.fetch("id", nil)
-
-      if workflow_id.nil?
-        raise "Could not find workflow with name #{workflow_name}"
-      end
-
+    def fetch_workflow_duration_history(workflow_id)
       get(
         "/workflows/#{workflow_id}}/runs",
         {per_page: 100, status: "success", exclude_pull_requests: true}

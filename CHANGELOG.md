@@ -1,6 +1,7 @@
 ## [Unreleased]
 
--
+- Breaking: Removed the `list-workflows` command and renamed the `duration-history` to just `duration`
+- Breaking: The `duration` command now accepts the workflow file name (or ID) instead of the name
 
 ## [0.2.0] - 2023-06-01
 

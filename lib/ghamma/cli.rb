@@ -17,26 +17,12 @@ module Ghamma
       end
     end
 
-    class ListWorkflows < Dry::CLI::Command
-      desc "List workflows on the given repo"
+    class Duration < Dry::CLI::Command
+      desc "Track the duration of successful workflow runs over time"
 
-      argument :owner, required: true
-      argument :repo, required: true
-
-      def call(owner:, repo:)
-        workflows = GithubApiClient.new(owner: owner, repo: repo, token: ENV["GH_TOKEN"]).fetch_workflows
-        puts "Found #{workflows.size} workflows"
-        workflows.each { |workflow| puts workflow[:name] }
-        puts
-      end
-    end
-
-    class DurationHistory < Dry::CLI::Command
-      desc "List the duration of each successful workflow run"
-
-      argument :owner, required: true
-      argument :repo, required: true
-      argument :workflow, required: true
+      argument :owner, required: true, desc: "The user or organisation to whom the repo belongs"
+      argument :repo, required: true, desc: "The repo to whom the workflow belongs"
+      argument :workflow, required: true, desc: "The filename for the desired workflow, e.g. tests.yml"
 
       def call(owner:, repo:, workflow:)
         durations = GithubApiClient.new(owner: owner, repo: repo, token: ENV["GH_TOKEN"]).fetch_workflow_duration_history(workflow)
@@ -54,7 +40,6 @@ module Ghamma
     end
 
     register "version", Version, aliases: ["v", "-v", "--version"]
-    register "list-workflows", ListWorkflows
-    register "duration-history", DurationHistory
+    register "duration", Duration
   end
 end
