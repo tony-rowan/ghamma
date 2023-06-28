@@ -9,7 +9,7 @@ module Ghamma
       @authorization_header = "Bearer #{token}"
     end
 
-    def fetch_workflow_duration_history(workflow_id)
+    def fetch_workflow_duration_history(workflow_id, since)
       pages = 2 # enough to do the first loop
       page = 1
       timings = []
@@ -17,7 +17,7 @@ module Ghamma
       while page < pages
         response = get(
           "/workflows/#{workflow_id}/runs",
-          {page: page, per_page: 100, status: "success", exclude_pull_requests: true}
+          {page: page, per_page: 100, status: "success", exclude_pull_requests: true, created: ">#{since}"}
         )
 
         pages = response["total_count"] / 100
