@@ -19,7 +19,7 @@ module Ghamma
           .fetch_workflow_duration_history(workflow, since)
 
         durations_output = CSV.generate do |csv|
-          csv << ["Date", "Duration"]
+          csv << ["ID", "Date", "Duration"]
           durations.each do |duration|
             csv << duration
           end

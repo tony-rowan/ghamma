@@ -27,6 +27,7 @@ module Ghamma
           run_timing = get("/runs/#{workflow_run["id"]}/timing")
 
           timings << [
+            workflow_run["id"],
             workflow_run["created_at"],
             run_timing["run_duration_ms"]
           ]
