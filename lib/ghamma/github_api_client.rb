@@ -13,6 +13,9 @@ module Ghamma
       pages = 2 # enough to do the first loop
       page = 1
       timings = []
+      first_run = true
+
+      puts "Fetching workflow runs of #{workflow_id} since #{since}"
 
       while page < pages
         response = get(
@@ -20,7 +23,12 @@ module Ghamma
           {page: page, per_page: 100, status: "success", exclude_pull_requests: true, created: ">#{since}"}
         )
 
-        pages = response["total_count"] / 100
+        if first_run
+          total_runs = response["total_count"]
+          pages = total_runs / 100
+          puts "Found #{total_runs} workflow runs, fetching durations for each"
+        end
+
         page += 1
 
         response.fetch("workflow_runs").each do |workflow_run|

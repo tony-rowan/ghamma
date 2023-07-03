@@ -13,10 +13,13 @@ module Ghamma
       argument :repo, required: true, desc: "The repo to whom the workflow belongs"
       argument :workflow, required: true, desc: "The filename for the desired workflow, e.g. tests.yml"
       option :since, default: "1970-01-01", desc: "Fetch workflow runs since this date"
+      option :output, desc: "Optional file to which to output results, defaults to STDOUT"
 
-      def call(owner:, repo:, workflow:, since:)
+      def call(owner:, repo:, workflow:, since:, output: nil)
         durations = GithubApiClient.new(owner: owner, repo: repo, token: ENV["GH_TOKEN"])
           .fetch_workflow_duration_history(workflow, since)
+
+        puts "Workflows fetchced, generating output"
 
         durations_output = CSV.generate do |csv|
           csv << ["ID", "Date", "Duration"]
@@ -25,8 +28,14 @@ module Ghamma
           end
         end
 
-        puts durations_output
-        puts
+        if output
+          File.write(output, durations_output)
+        else
+          puts durations_output
+          puts
+        end
+
+        puts "Done"
       end
     end
   end
