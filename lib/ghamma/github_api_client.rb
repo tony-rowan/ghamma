@@ -9,26 +9,22 @@ module Ghamma
       @authorization_header = "Bearer #{token}"
     end
 
-    def fetch_workflow_duration_history(workflow_id, since)
+    def fetch_workflow_duration_history(workflow_id, since, progressbar)
       pages = 2 # enough to do the first loop
       page = 1
       timings = []
-      first_run = true
 
-      puts "Fetching workflow runs of #{workflow_id} since #{since}"
+      while page <= pages
+        since_param = ">#{since}" if since
 
-      while page < pages
         response = get(
           "/workflows/#{workflow_id}/runs",
-          {page: page, per_page: 100, status: "success", exclude_pull_requests: true, created: ">#{since}"}
+          {page: page, per_page: 100, status: "success", exclude_pull_requests: true, created: since_param}.compact
         )
 
-        if first_run
-          total_runs = response["total_count"]
-          pages = total_runs / 100
-          puts "Found #{total_runs} workflow runs, fetching durations for each"
-        end
-
+        total_count = response["total_count"]
+        progressbar.update(total: total_count)
+        pages = total_count / 100
         page += 1
 
         response.fetch("workflow_runs").each do |workflow_run|
@@ -39,7 +35,13 @@ module Ghamma
             workflow_run["created_at"],
             run_timing["run_duration_ms"]
           ]
+
+          progressbar.advance
+
+          sleep 0.1 # Try to keep under the Github rate limit
         end
+
+        sleep 1 # Try to keep under the Github rate limit
       end
 
       timings

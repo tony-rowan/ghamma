@@ -30,6 +30,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "dry-cli"
   spec.add_dependency "http"
+  spec.add_dependency "tty-progressbar"
 
   spec.add_development_dependency "rake"
   spec.add_development_dependency "standard"

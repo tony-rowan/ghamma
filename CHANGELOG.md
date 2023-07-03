@@ -2,7 +2,7 @@
 
 - Feature: Allow optionally specifying an output file for the CSV
 - Change: Add ID of the workflow run to the output
-- Feature: Support restricting workflow runs examine since a given date
+- Feature: Support restricting workflow runs examined since a given date
 - Feature: Fetch all the workflow runs, not just the first 100
 - Breaking: Removed the `list-workflows` command and renamed the `duration-history` to just `duration`
 - Breaking: The `duration` command now accepts the workflow file name (or ID) instead of the name
