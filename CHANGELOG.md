@@ -1,4 +1,6 @@
-## [Unreleased]
+## Unreleased
+
+## [0.3.0] - 2023-07-04
 
 - Feature: Allow optionally specifying an output file for the CSV
 - Change: Add ID of the workflow run to the output

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ghamma (0.2.0)
+    ghamma (0.3.0)
       dry-cli
       http
       tty-progressbar
