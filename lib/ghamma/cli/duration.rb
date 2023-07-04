@@ -8,12 +8,20 @@ require_relative "../github_api_client"
 module Ghamma
   module CLI
     class Duration < Dry::CLI::Command
-      desc "Track the duration of successful workflow runs over time"
+      desc "Extract the durations of successful runs of a workflow over time"
+
+      example [
+        "tony-rowan ghamma main.yml" \
+        "  # Prints durations of all workflow runs of main.yml to STDOUT",
+        "tony-rowan ghamma main.yml --since='2023-07-01' --output='/tmp/main.csv'" \
+        "  # Saves durations of all workflow runs of main.yml since 2023-07-01 to /tmp/main.csv"
+      ]
 
       argument :owner, required: true, desc: "The user or organisation to whom the repo belongs"
-      argument :repo, required: true, desc: "The repo to whom the workflow belongs"
-      argument :workflow, required: true, desc: "The filename for the desired workflow, e.g. tests.yml"
-      option :since, desc: "Fetch workflow runs since this date"
+      argument :repo, required: true, desc: "The repo to which the workflow belongs"
+      argument :workflow, required: true, desc: "The filename for the desired workflow, e.g. main.yml"
+
+      option :since, desc: "Optionally restrict workflows to those created since this date"
       option :output, desc: "Optional file to which to output results, defaults to STDOUT"
 
       def call(owner:, repo:, workflow:, since: nil, output: nil)
